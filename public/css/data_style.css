@@ -1,0 +1,100 @@
+/* General body styling */
+body {
+    font-family: 'Montserrat', sans-serif; /* Modern font */
+    background-color: #f4f4f4; /* Light gray background */
+    margin: 0;
+    padding: 0;
+}
+
+/* Container styling */
+.container {
+    max-width: 900px;
+}
+
+/* Page heading */
+h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Card styling */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    overflow: hidden;
+}
+
+.card-header {
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: none;
+    padding: 15px 20px;
+}
+
+.card-header.bg-primary {
+    background-color: #007bff !important; /* Blue background */
+}
+
+.card-header.bg-success {
+    background-color: #28a745 !important; /* Green background */
+}
+
+.card-body {
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+    border-radius: 0 0 12px 12px;
+}
+
+/* Table styling */
+.table {
+    margin-bottom: 0;
+    font-size: 16px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background-color: #007bff; /* Blue header */
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f8f9fa; /* Alternating row colors */
+}
+
+.table td, 
+.table th {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+/* Alert text styling */
+.text-danger {
+    color: #dc3545 !important; /* Red for warnings/errors */
+    font-weight: bold;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .table td, 
+    .table th {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

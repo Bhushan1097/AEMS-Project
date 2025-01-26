@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Analytics</title>
+    <link rel="stylesheet" href="/css/analytics.css"> 
+</head>
+<body>
+
+    <% layout("/layouts/admin-boilerplate.ejs") %>
+    <section id="analytics">
+        <div class="container">
+            <h2>Energy Consumption Analytics</h2>
+            <div class="card">
+                <h3>Peak Consumption Hours</h3>
+                <p><%= formattedPeakHour %></p>
+            </div>
+            <div class="card">
+                <h3>Average Monthly Consumption</h3>
+                <% averageMonthlyConsumption.forEach(function(item) { %>
+                    <p><%= item.month %>: <%= item.averageConsumption.toFixed(2) %> kWh</p>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

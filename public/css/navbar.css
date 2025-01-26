@@ -1,0 +1,60 @@
+/* Header Styling */
+header {
+    background-color: #28a745 !important; /* Changed background color to green */
+    color: #fff !important;
+    padding: 20px 0 !important;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: rgb(51, 171, 33) !important; /* Changed navbar background color to green */
+    width: 100% !important; /* Ensure the navbar covers the full width */
+    position: fixed !important; /* Make the navbar fixed at the top */
+    top: 0 !important; /* Position it at the top */
+    left: 0 !important; /* Align to the left */
+    z-index: 1000 !important; /* Ensure it stays above other content */
+    text-align: center !important; /* Center align the text */
+}
+
+.navbar .navbar-toggler {
+    border: none !important; /* Remove border from the toggle button */
+}
+
+.navbar .navbar-toggler-icon {
+    background-color: #fff !important; /* Set color for the toggle icon */
+}
+
+.navbar-nav {
+    margin: 0 !important; /* Remove margin from the navbar items */
+}
+
+.navbar-nav .nav-item {
+    display: inline-block !important; /* Align nav items in a row */
+    margin: 0 20px !important; /* Add margin between nav items */
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: #fff !important; /* Set the text color for links */
+    font-size: 18px !important; /* Increase the font size */
+    padding: 15px 10px !important; /* Adjust padding for nav links */
+}
+
+.navbar-nav .nav-item .nav-link:hover,
+.navbar-nav .nav-item .nav-link.active {
+    color: #ff5722 !important; /* Changed hover and active link color to orange */
+    text-decoration: none !important; /* Remove underline */
+}
+
+.navbar-collapse {
+    justify-content: center !important; /* Center the navbar items */
+}
+
+/* H1 Styles */
+h1 {
+    color: #0c0909 !important; /* Set header text color */
+    font-size: 28px !important; /* Set header font size */
+    font-weight: bold !important; /* Make the header bold */
+    margin-bottom: 0 !important; /* Remove margin below the header */
+}

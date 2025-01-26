@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile</title>
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+
+    <% layout("/layouts/admin-boilerplate.ejs") %>
+
+<section id="profile">
+    <div class="container">
+        <h2>Admin Profile</h2>
+        <div class="card">
+            <form method="POST" action="/admin-profile/edit">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="<%= admin.username %>">
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="enter your password">
+
+                <button type="submit" style="background-color: gold;">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

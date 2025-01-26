@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <link rel="stylesheet" href="/css/profile_style.css">
+</head>
+<body>
+
+    <!-- Profile Update Section -->
+    <section id="profile-update">
+        <div class="container">
+            <h2>Update Profile</h2>
+            <div class="card">
+                <!-- Form to submit updated profile information -->
+                <form action="/profile/update" method="POST">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" value="<%= user.name %>" required>
+
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" value="<%= user.username %>" readonly>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter new password (optional)">
+
+                    <label for="mobile_no">Mobile Number:</label>
+                    <input type="text" id="mobile_no" name="mobile_no" value="<%= user.mobile_no %>" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="<%= user.email %>" required>
+
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" value="<%= user.address %>" required>
+
+                    <label for="pincode">Pincode:</label>
+                    <input type="text" id="pincode" name="pincode" value="<%= user.pincode %>" required pattern="^[0-9]{6}$">
+
+                    <div class="button-group">
+                        <button type="submit">Update Profile</button>
+                        <button type="button" onclick="window.location.href='/profile';">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

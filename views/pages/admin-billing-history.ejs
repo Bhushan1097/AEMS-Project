@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing History</title>
+    <link rel="stylesheet" href="/css/billing-history.css"> 
+</head>
+<body>
+
+    <% layout("/layouts/admin-boilerplate.ejs") %>
+    <section id="billing-history">
+        <div class="container">
+            <h2>Billing History</h2>
+            <!-- Search bar -->
+            <input type="text" id="billingSearch" placeholder="Search by User ID, Transaction ID, or Status..." onkeyup="searchTable('billingSearch', 'billingTable')">
+            <div class="card">
+                <table id="billingTable">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Transaction ID</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Loop through billingHistory and display each billing record -->
+                        <% billingHistory.forEach(billing => { %>
+                            <tr>
+                                <td><%= billing.user_Id ? billing.user_Id : 'N/A' %></td> <!-- Display User's Name -->
+                                <td><%= billing.transaction_id %></td>
+                                <td><%= billing.created_at.toLocaleDateString() %></td> <!-- Format Date -->
+                                <td>₹<%= billing.amount_paid.toFixed(2) %></td>
+                                <td><%= billing.payment_status %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for Search Functionality -->
+    <script>
+        function searchTable(inputId, tableId) {
+            const input = document.getElementById(inputId).value.toLowerCase(); // Convert input to lowercase
+            const table = document.getElementById(tableId);
+            const rows = table.getElementsByTagName('tr'); // Get all rows in the table
+
+            for (let i = 1; i < rows.length; i++) { // Start from 1 to skip the header row
+                const cells = rows[i].getElementsByTagName('td'); // Get all cells in the row
+                let match = false;
+
+                for (let j = 0; j < cells.length; j++) { // Iterate through all cells in the row
+                    if (cells[j].innerText.toLowerCase().includes(input)) { // Check if any cell matches the search input
+                        match = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = match ? '' : 'none'; // Show or hide the row based on match
+            }
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!-- profile.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/css/profile_style.css"> <!-- Link to external CSS file -->
+</head>
+<body>
+    <% layout("/layouts/boilerplate.ejs") %>
+    <!-- Profile Section -->
+    <section id="profile">
+        <div class="card">
+            <!-- Show error message if present -->
+            <% if (error) { %>
+                <div class="error-message" style="color: red;"><%= error %></div>
+            <% } %>
+            <!-- Redirect to profile update form on button click -->
+           <!-- profile.ejs -->
+<form action="/profile/edit" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" placeholder="Enter your username" value="<%= user.username %>" required readonly>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+    
+    <!-- Button to navigate to update form -->
+    <button class="bt" type="submit">Edit Profile</button>
+</form>
+
+        </div>
+        
+    </section>
+</body>
+</html>

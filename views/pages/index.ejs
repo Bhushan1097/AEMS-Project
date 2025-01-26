@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Energy Meter Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Smart Energy Meter</h1>
+            <nav>
+                <ul>
+                    <li><a href="/" onclick="showSection('dashboard')">Dashboard</a></li>
+                    <li><a href="/billing">Billing</a></li>
+                    <li><a href="/alerts">Alerts</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/support">Support</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="active">
+        <div class="container">
+            <h2>Dashboard</h2>
+            <div class="card">
+                <h3>Current Balance</h3>
+                <p>₹5,500.00</p>
+                <button class="recharge-button">Recharge Now</button>
+            </div>
+            <div class="card">
+                <h3>Real Time Energy Consumption</h3>
+                <button onclick="showConsumption('daily')">Daily Consumption</button>
+                <button onclick="showConsumption('weekly')">Weekly Consumption</button>
+                <button onclick="showConsumption('monthly')">Monthly Consumption</button>
+            </div>
+            <div id="consumptionDetails" class="consumption-details">
+                <div id="daily" class="consumption-option" style="display:none;">
+                    <h3>Daily Consumption</h3>
+                    <p>22 kWh</p>
+                </div>
+                <div id="weekly" class="consumption-option" style="display:none;">
+                    <h3>Weekly Consumption</h3>
+                    <p>154 kWh</p>
+                </div>
+                <div id="monthly" class="consumption-option" style="display:none;">
+                    <h3>Monthly Consumption</h3>
+                    <p>620 kWh</p>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Consumption Graph</h3>
+                <canvas id="consumptionChart" style="max-width: 600px; margin: auto;"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

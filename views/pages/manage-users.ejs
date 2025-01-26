@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users</title>
+    <link rel="stylesheet" href="/css/manage-users.css"> 
+</head>
+<body>
+    <% layout("/layouts/admin-boilerplate.ejs") %>
+    <section id="manage-users">
+        <div class="container">
+            <h2>Manage Users</h2>
+
+            <!-- Search bar -->
+            <input type="text" id="userSearch" placeholder="Search for users..." onkeyup="searchTable('userSearch', 'userTable')">
+
+            <div class="card">
+                <table id="userTable">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>MAC ID</th>
+                            <th>Name</th>
+                            <th>Last Reset</th>
+                            <th>Last Update</th>
+                            <th>Total Consumption (kWh)</th>
+                            <th>Remaining Balance</th>
+                            <th>Relay Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% userConsumptionDetails.forEach(user => { %>
+                            <tr>
+                                <td><%= user.user_Id %></td>
+                                <td><%= user.mac_Id %></td>
+                                <td><%= user.name %></td>
+                                <td><%= new Date(user.lastReset).toLocaleString() %></td>
+                                <td><%= new Date(user.lastUpdate).toLocaleString() %></td>
+                                <td><%= user.totalConsumption %> kWh</td>
+                                <td>₹<%= user.remainingBalance %></td>
+                                <td><%= user.relayStatus %></td>
+                                <td>
+                                    <form action="/update-relay-status" method="POST" data-mac-id="<%= user.mac_Id %>">
+                                        <input type="hidden" name="mac_Id" value="<%= user.mac_Id %>">
+                                        <input type="hidden" name="status" value="">
+                                        <button type="button" class="btn-on" onclick="confirmAction('ON', '<%= user.mac_Id %>')">ON</button>
+                                        <button type="button" class="btn-off" onclick="confirmAction('OFF', '<%= user.mac_Id %>')">OFF</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+
+<!-- JavaScript for Search Functionality and Confirmation -->
+<script>
+    function searchTable(inputId, tableId) {
+        const input = document.getElementById(inputId).value.toLowerCase();
+        const table = document.getElementById(tableId);
+        const rows = table.getElementsByTagName('tr');
+
+        for (let i = 1; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            let match = false;
+
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j].innerText.toLowerCase().includes(input)) {
+                    match = true;
+                    break;
+                }
+            }
+            rows[i].style.display = match ? '' : 'none';
+        }
+    }
+
+    function confirmAction(action, macId) {
+        
+        const status = action;
+        const actionMessage = status === 'ON' ? 'Turn ON' : 'Turn OFF';
+        const confirmMessage = `Are you sure you want to ${actionMessage} the relay for MAC ID: ${macId}?`;
+
+        if (confirm(confirmMessage)) {
+            // Find the form and set the status value
+            const form = document.querySelector(`form[data-mac-id="${macId}"]`);
+            form.querySelector('input[name="status"]').value = status; // Set status in uppercase
+            form.submit(); // Submit the form
+        } else {
+            alert('Action cancelled.');
+        }
+    }
+</script>
+
+</body>
+</html>

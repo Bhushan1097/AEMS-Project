@@ -1,0 +1,90 @@
+
+/* Section Heading */
+h2 {
+    padding: 20px;
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+
+/* Table Styling */
+.alerts-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alerts-table th, 
+.alerts-table td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.alerts-table th {
+    background-color: #f1f1f1;
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+}
+
+.alerts-table td {
+    border-bottom: 1px solid #ddd;
+}
+
+.alerts-table td:last-child {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Button Styling */
+.alerts-table button {
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.alerts-table button:hover {
+    opacity: 0.9;
+}
+
+.alerts-table .btn-on {
+    background-color: #28a745;
+    color: white;
+}
+
+.alerts-table .btn-off {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Card for Alerts Section */
+.alerts-table {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .alerts-table table {
+        font-size: 14px;
+    }
+
+    .alerts-table th,
+    .alerts-table td {
+        padding: 8px 10px;
+    }
+
+    .alerts-table button {
+        padding: 6px 12px;
+    }
+}

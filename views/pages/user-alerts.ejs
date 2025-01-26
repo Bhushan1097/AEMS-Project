@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerts</title>
+    <link rel="stylesheet" href="/css/alert_style.css"> <!-- Link to external CSS file -->
+</head>
+<body>
+    <!-- Navbar -->
+    <% layout("/layouts/boilerplate.ejs") %>
+
+    <!-- Alerts Section -->
+    <section id="alerts">
+        <div class="container">
+            <h2>Alerts</h2>
+            <% if (alerts.length > 0) { %>
+                <div class="card">
+                    <ul>
+                        <% alerts.forEach(alert => { %>
+                            <li>
+                                <strong><%= alert.alert %></strong> 
+                                <br>
+                                <small>Time: <%= new Date(alert.time_stamp).toLocaleString() %></small>
+                            </li>
+                        <% }); %>
+                    </ul>
+                </div>
+            <% } else { %>
+                <p>No alerts available for your account.</p>
+            <% } %>
+        </div>
+    </section>
+
+    <script src="/js/dashboard.js"></script> <!-- Link to external JavaScript file -->
+</body>
+</html>

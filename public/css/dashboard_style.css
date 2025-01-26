@@ -1,0 +1,41 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+h2 {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Card Styles */
+.card {
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #007bff;
+  font-size: 20px;
+}
+
+/* Consumption Details */
+.consumption-option {
+  display: none;
+}
+
+/* Buttons */
+button {
+  border-radius: 5px;
+}

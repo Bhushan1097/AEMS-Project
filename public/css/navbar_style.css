@@ -1,0 +1,118 @@
+/* Header Styling */
+header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px 0;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #007bff; /* Set navbar background color */
+    padding: 20px 0; /* Increase top and bottom padding */
+    width: 100%; /* Ensure the navbar covers the full width */
+    position: fixed; /* Make the navbar fixed at the top */
+    top: 0; /* Position it at the top */
+    left: 0; /* Align to the left */
+    z-index: 1000; /* Ensure it stays above other content */
+    text-align: center; /* Center align the text */
+}
+
+.navbar .navbar-toggler {
+    border: none; /* Remove border from the toggle button */
+}
+
+.navbar .navbar-toggler-icon {
+    background-color: #fff; /* Set color for the toggle icon */
+}
+
+.navbar-nav {
+    margin: 0; /* Remove margin from the navbar items */
+}
+
+.navbar-nav .nav-item {
+    display: inline-block; /* Align nav items in a row */
+    margin: 0 20px; /* Add margin between nav items */
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: #fff; /* Set the text color for links */
+    font-size: 18px; /* Increase the font size */
+    padding: 15px 10px; /* Adjust padding for nav links */
+}
+
+.navbar-nav .nav-item .nav-link:hover,
+.navbar-nav .nav-item .nav-link.active {
+    color: #ffd700; /* Change color on hover and for active links */
+    text-decoration: none; /* Remove underline */
+}
+
+.navbar-collapse {
+    justify-content: center; /* Center the navbar items */
+}
+
+/* H1 Styles */
+h1 {
+    color: #fff; /* Set header text color */
+    font-size: 28px; /* Set header font size */
+    font-weight: bold; /* Make the header bold */
+    margin-bottom: 0; /* Remove margin below the header */
+}
+
+
+/* Header Styling */
+header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px 0;
+}
+
+header h1 {
+    text-align: center;
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #0056b3;
+    color: #f1f1f1;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 20px;
+    }
+    nav ul {
+        flex-direction: column;
+    }
+    nav ul li {
+        margin: 10px 0;
+    }
+    nav ul li a {
+        font-size: 14px;
+    }
+    h2 {
+        font-size: 24px;
+    }
+}

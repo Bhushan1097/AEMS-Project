@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Information</title>
+    <link rel="stylesheet" href="/css/billing_style.css"> <!-- Link to external CSS file -->
+</head>
+<body>
+    <!-- navbar -->
+    <% layout("/layouts/boilerplate.ejs") %>
+
+    <!-- Billing Section -->
+    <section id="billing">
+        <div class="container">
+            <h2>Billing Information</h2>
+            <!-- Search bar for Transaction ID -->
+            <input type="text" id="transactionSearch" placeholder="Search by Transaction ID..." onkeyup="searchBillingHistory()">
+            <div class="card">
+                <table id="billingTable">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Loop through billingHistory and display each billing record -->
+                        <% billingHistory.forEach(billing => { %>
+                            <tr>
+                                <td><%= billing.transaction_id %></td>
+                                <td><%= billing.created_at.toLocaleDateString() %></td>
+                                <td>₹<%= billing.amount_paid.toFixed(2) %></td>
+                                <td><%= billing.payment_status %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for search functionality -->
+    <script>
+        function searchBillingHistory() {
+            // Get the search query from the input field and convert it to lowercase for case-insensitive search
+            const searchInput = document.getElementById('transactionSearch').value.toLowerCase();
+
+            // Get all rows in the billing table
+            const rows = document.querySelectorAll('#billingTable tbody tr');
+
+            // Loop through each row and check if the Transaction ID matches the search query
+            rows.forEach(row => {
+                const transactionId = row.cells[0].textContent.toLowerCase(); // Get the text content of the first cell (Transaction ID)
+                
+                // If the transaction ID includes the search input, show the row, otherwise hide it
+                if (transactionId.includes(searchInput)) {
+                    row.style.display = '';  // Show row
+                } else {
+                    row.style.display = 'none';  // Hide row
+                }
+            });
+        }
+    </script>
+</body>
+</html>

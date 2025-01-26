@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Meter Dashboard</title>
+  
+    <link rel="stylesheet" href="/css/dashboard_style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   
+   <script>
+        const chartData = <%- JSON.stringify(chartData) %>;
+    </script>
+    
+</head>
+
+<body>
+    <!-- Navbar -->
+    <% layout("/layouts/boilerplate.ejs") %>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="container">
+        <h2 class="text-center mb-4">Dashboard</h2>
+
+        <div class="row g-4">
+            <!-- Current Balance Card -->
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title">Current Balance</h3>
+                        <p class="card-text fs-4">₹<%= latestBalance || 0 %></p>
+                        <button class="btn btn-primary w-100" onclick="initiateRecharge()">Recharge Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-Time Energy Consumption -->
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title">Real Time Energy Consumption</h3>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary consumption-btn" data-target="daily">Today</button>
+                            <button class="btn btn-outline-primary consumption-btn" data-target="weekly">This Week</button>
+                            <button class="btn btn-outline-primary consumption-btn" data-target="monthly">This Month</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <!-- Consumption Details -->
+        <div id="consumptionDetails" class="mt-4">
+            <div id="daily" class="consumption-option" style="display:none;">
+                <h3 class="text-center">Today Consumption</h3>
+                <p class="text-center"><%= consumption.daily %> kWh</p>
+            </div>
+            <div id="weekly" class="consumption-option" style="display:none;">
+                <h3 class="text-center">This Week Consumption</h3>
+                <p class="text-center"><%= consumption.weekly %> kWh</p>
+            </div>
+            <div id="monthly" class="consumption-option" style="display:none;">
+                <h3 class="text-center">This Month Consumption</h3>
+                <p class="text-center"><%= consumption.monthly %> kWh</p>
+            </div>
+        </div>
+
+                <!-- Consumption Details -->
+                <div id="consumptionDetails" class="mt-4">
+                    <div id="daily" class="consumption-option" style="display:none;">
+                        <h3 class="text-center">Today Consumption</h3>
+                        <p class="text-center"><%= consumption.daily %> kWh</p>
+                    </div>
+                    <div id="weekly" class="consumption-option" style="display:none;">
+                        <h3 class="text-center">This Week Consumption</h3>
+                        <p class="text-center"><%= consumption.weekly %> kWh</p>
+                    </div>
+                    <div id="monthly" class="consumption-option" style="display:none;">
+                        <h3 class="text-center">This Month Consumption</h3>
+                        <p class="text-center"><%= consumption.monthly %> kWh</p>
+                    </div>
+                </div>
+
+        <!-- Consumption Graph -->
+        <div class="card shadow-sm mt-4">
+            <div class="card-body">
+                <h3 class="card-title text-center">Consumption Graph</h3>
+                <canvas id="myChart" style="max-width: 100%;"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <script>
+
+         // JavaScript to toggle consumption details visibility
+         document.querySelectorAll('.consumption-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const target = this.getAttribute('data-target');
+                const targetElement = document.getElementById(target);
+                
+                if (targetElement.style.display === 'none' || targetElement.style.display === '') {
+                    hideAllConsumption();
+                    targetElement.style.display = 'block';
+                } else {
+                    targetElement.style.display = 'none';
+                }
+            });
+        });
+
+        // Function to hide all consumption sections
+        function hideAllConsumption() {
+            document.querySelectorAll('.consumption-option').forEach(option => {
+                option.style.display = 'none';
+            });
+        }
+
+        // Recharge Script
+        function initiateRecharge() {
+            const amount = prompt("Enter the amount to recharge:");
+            if (amount && !isNaN(amount) && parseFloat(amount) > 0) {
+                fetch('/recharge', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ amount: parseFloat(amount) })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(`Recharge successful! New Balance: ₹${data.newBalance}`);
+                        location.reload();
+                    } else {
+                        alert(data.message || "Recharge failed!");
+                    }
+                })
+                .catch(err => console.error("Error processing recharge:", err));
+            } else {
+                alert("Invalid amount entered. Please try again.");
+            }
+        }
+        
+
+        // Chart.js Initialization
+        const ctx = document.getElementById('myChart').getContext('2d');
+        let chart;
+
+        function updateChart(type) {
+            const data = chartData[type];
+
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.labels, // Dates for x-axis
+                    datasets: [{
+                        label: `${type.charAt(0).toUpperCase() + type.slice(1)} Consumption`,
+                        data: data.data,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'kWh'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize the chart with daily data by default
+        updateChart('daily');
+
+        // Add event listeners to buttons
+        document.querySelectorAll('.consumption-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const type = this.getAttribute('data-target');
+                updateChart(type);
+            });
+        });
+    </script>
+</body>
+
+</html>

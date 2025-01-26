@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Admin Profile</title>
+    <link rel="stylesheet" href="/css/update_profile.css">
+</head>
+<body>
+
+    <section id="update-profile">
+        <div class="container">
+            <h2>Update Admin Profile</h2>
+            <div class="card">
+                <form action="/admin-profile/update" method="POST">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" value="<%= admin.name %>" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="<%= admin.email %>" required>
+
+                    <label for="mobile_no">Mobile Number:</label>
+                    <input type="text" id="mobile_no" name="mobile_no" value="<%= admin.mobile_no %>" required>
+
+                    <label for="password">New Password (leave blank to keep current password):</label>
+                    <input type="password" id="password" name="password">
+                <div>
+                    <button type="submit" style="background-color: gold;">Save Changes</button>
+                    <button type="button" onclick="window.location.href='/admin-profile';">Cancel</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
