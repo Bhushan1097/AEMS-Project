@@ -8,6 +8,23 @@ h2 {
     text-align: center;
 }
 
+/* Search Bar Styling */
+.search-input {
+    width: 100%; /* Increase width */
+    padding: 15px; /* Increase padding for better visibility */
+    font-size: 18px; /* Increase font size */
+    border: 2px solid #ccc; /* Add a border */
+    border-radius: 8px; /* Rounded corners */
+    outline: none; /* Remove focus outline */
+    margin-bottom: 20px; /* Space below search bar */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Light shadow effect */
+}
+
+.search-input:focus {
+    border-color: #28a745; /* Change border color when focused */
+}
+
+
 /* Table Styling */
 .alerts-table table {
     width: 100%;

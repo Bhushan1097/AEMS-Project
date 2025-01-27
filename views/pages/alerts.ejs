@@ -11,37 +11,61 @@
     <% layout("/layouts/admin-boilerplate.ejs") %><br>
 
     <!-- Alerts Section -->
-            <h2>Alerts</h2>
-            
-            <!-- Alerts Table -->
-            <div class="alerts-table">
-                <table>
-                    <thead>
+    <div class="container">
+        <h2>Alerts</h2>
+
+        <!-- Search Bar -->
+<!-- Search Bar -->
+<input type="text" id="searchBar" onkeyup="searchAlerts()" placeholder="Search by User ID..." class="search-input">
+
+        <!-- Alerts Table -->
+        <div class="alerts-table">
+            <table id="alertsTable">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Alert</th>
+                        <th>Time</th> <!-- Add Time Column -->
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through alerts passed from backend -->
+                    <% alerts.forEach(alert => { %>
                         <tr>
-                            <th>User ID</th>
-                            <th>Alert</th>
-                            <th>Time</th> <!-- Add Time Column -->
-                            <th>Action</th>
+                            <td class="user-id"><%= alert.user_Id %></td>
+                            <td><%= alert.alert %></td>
+                            <td><%= alert.time_stamp.toLocaleString() %></td> <!-- Format and display time -->
+                            <td>
+                                <button onclick="confirmDelete('<%= alert._id %>')">Delete</button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Loop through alerts passed from backend -->
-                        <% alerts.forEach(alert => { %>
-                            <tr>
-                                <td><%= alert.user_Id %></td>
-                                <td><%= alert.alert %></td>
-                                <td><%= alert.time_stamp.toLocaleString() %></td> <!-- Format and display time -->
-                                <td>
-                                    <button onclick="confirmDelete('<%= alert._id %>')">Delete</button>
-                                </td>
-                                
-                            </tr>
-                        <% }) %>
-                    </tbody>
-                </table>
-            </div>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <script>
+        // Function to filter table based on user ID search
+        function searchAlerts() {
+            const input = document.getElementById('searchBar').value.toUpperCase();
+            const table = document.getElementById('alertsTable');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < rows.length; i++) {
+                const userIdCell = rows[i].getElementsByClassName('user-id')[0];
+                if (userIdCell) {
+                    const userIdText = userIdCell.textContent || userIdCell.innerText;
+                    if (userIdText.toUpperCase().indexOf(input) > -1) {
+                        rows[i].style.display = '';
+                    } else {
+                        rows[i].style.display = 'none';
+                    }
+                }
+            }
+        }
+
         async function confirmDelete(alertId) {
             const confirmation = confirm("Are you sure you want to delete this alert?");
             if (confirmation) {
@@ -49,7 +73,7 @@
                     const response = await fetch(`/alerts/${alertId}`, {
                         method: 'DELETE',
                     });
-    
+
                     if (response.ok) {
                         alert("Alert deleted successfully!");
                         location.reload(); // Reload the page to reflect the changes
@@ -63,6 +87,5 @@
             }
         }
     </script>
-    
 </body>
 </html>
