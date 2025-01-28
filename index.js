@@ -843,11 +843,11 @@ app.get('/manage-users', Authenticated, wrapAsync(async (req, res) => {
                     name: user.name,
                     mobile_no: user.mobile_no,
                     email: user.email,
-                    lastReset: latestConsumption ? latestConsumption.reset_time : "N/A",
-                    lastUpdate: latestConsumption ? latestConsumption.update_time : "N/A",
+                    lastReset: latestConsumption ? latestConsumption.reset_time || "N/A": "N/A",
+                    lastUpdate: latestConsumption ? latestConsumption.update_time || "N/A" : "N/A",
                     totalConsumption: totalConsumption.length > 0 ? totalConsumption[0].total : 0, // Use aggregated value
                     remainingBalance: latestConsumption ? latestConsumption.balance || "N/A" : "N/A", // Fetch balance
-                    relayStatus: latestConsumption ? latestConsumption.relay_status : "N/A",
+                    relayStatus: latestConsumption ? latestConsumption.relay_status || "N/A": "N/A",
                 };
             })
         );
