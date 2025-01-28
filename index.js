@@ -550,7 +550,8 @@ app.get('/user-alerts', isAuthenticated, wrapAsync(async (req, res) => {
         const mac_Id = req.session.user.mac_Id;
 
         // Fetch alerts corresponding to the user's MAC ID
-        const userAlerts = await Alert.find({ mac_Id });
+        const userAlerts = await Alert.find().sort({ time_stamp: -1 });
+
 
         // Render the alerts page and pass the alerts to the template
         res.render('pages/user-alerts', { alerts: userAlerts });
@@ -826,9 +827,16 @@ app.get('/manage-users', Authenticated, wrapAsync(async (req, res) => {
         
         const userConsumptionDetails = await Promise.all(
             users.map(async (user) => {
+                // Fetch the latest record by time_stamp
                 const latestConsumption = await Consumption.findOne({ mac_Id: user.mac_Id })
-                    .sort({ time_stamp: -1 }); // Fetch the latest record by time_stamp
-                
+                    .sort({ time_stamp: -1 });
+
+                // Calculate the total consumption for the user
+                const totalConsumption = await Consumption.aggregate([
+                    { $match: { mac_Id: user.mac_Id } },
+                    { $group: { _id: null, total: { $sum: "$consumption" } } }
+                ]);
+
                 return {
                     user_Id: user.user_Id,
                     mac_Id: user.mac_Id,
@@ -837,7 +845,7 @@ app.get('/manage-users', Authenticated, wrapAsync(async (req, res) => {
                     email: user.email,
                     lastReset: latestConsumption ? latestConsumption.reset_time : "N/A",
                     lastUpdate: latestConsumption ? latestConsumption.update_time : "N/A",
-                    totalConsumption: latestConsumption ? latestConsumption.consumption : 0,
+                    totalConsumption: totalConsumption.length > 0 ? totalConsumption[0].total : 0, // Use aggregated value
                     remainingBalance: latestConsumption ? latestConsumption.balance || "N/A" : "N/A", // Fetch balance
                     relayStatus: latestConsumption ? latestConsumption.relay_status : "N/A",
                 };
